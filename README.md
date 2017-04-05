@@ -9,5 +9,4 @@ desplazarse; para conseguirlos el usuario deberá eliminar los tanques que se op
 En caso de conseguir las fichas el usuario gana y en caso de que no lo logre habrá perdido, por otro lado, 
 cuando finaliza el juego por pérdida o por ganar se muestra un cuadro donde se puede visualizar las veces que se ha jugado y el tiempo logrado.
 Podemos loguearnos en el juego utilizando la API de facebook.
-En el juego utilizaremos las teclas A,S,D,W, ESC(pausar) y el mouse(desplazar)-botón derecho del mouse(disparar)- si nos encontramos en una 
-laptop o PC, en caso de celulares únicamente se podrá utilizar el táctil del móvil.
+En el juego utilizaremos las teclas A,S,D,W, ESC(pausar) y el mouse(desplazar)-botón izquierdo del mouse(disparar)- si nos encontramos en una laptop o PC, en caso de celulares únicamente se podrá utilizar el táctil del móvil.
