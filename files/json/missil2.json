@@ -1,0 +1,37 @@
+{
+    "materials":[{
+        "vertexColors":false,
+        "depthTest":true,
+        "transparent":false,
+        "colorSpecular":[0.5,0.5,0.5],
+        "opacity":1,
+        "blending":"NormalBlending",
+        "DbgIndex":1,
+        "wireframe":false,
+        "colorEmissive":[0,0,0],
+        "visible":true,
+        "shading":"phong",
+        "specularCoef":50,
+        "depthWrite":true,
+        "colorDiffuse":[0.64,0.139635,0],
+        "DbgName":"Material.013",
+        "DbgColor":15597568
+    }],
+    "normals":[0,1,0],
+    "metadata":{
+        "type":"Geometry",
+        "vertices":4,
+        "materials":1,
+        "uvs":0,
+        "faces":2,
+        "version":3,
+        "normals":1,
+        "colors":0,
+        "generator":"io_three"
+    },
+    "vertices":[0,0.8573,3.5413,0,0.857299,-2.85489,-1.12326,0.8573,-0.519152,1.12326,0.8573,-0.519152],
+    "colors":[],
+    "name":"Plane.031Geometry",
+    "uvs":[],
+    "faces":[34,2,3,1,0,0,0,0,34,0,3,2,0,0,0,0]
+}

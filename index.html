@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Tank Attack 3D</title>
+		<link rel='shortcut icon' type='image/x-icon' href='./favicon.ico' />
+
+		<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+		<script type="text/javascript" src="./external-libraries/isMobile.min.js"></script> 
+		<script type="text/javascript" src="./external-libraries/threejs/three.js"></script> 
+		<script type="text/javascript" src="./external-libraries/threejs/detector-webgl.js"></script>  
+		<script type="text/javascript" src="./external-libraries/threejs/Projector.js"></script>  
+		<script type="text/javascript" src="./external-libraries/threejs/Ray.js"></script>  
+
+		<script type="text/javascript" src="./external-libraries/threejs/Raycaster.js"></script>  
+
+		<script type="text/javascript" src="./application/facebook/Facebook.js"></script>     
+		<script type="text/javascript" src="./application/utilities/Util.js"></script>     
+		<script type="text/javascript" src="./application/utilities/Timer.js"></script>     
+		<script type="text/javascript" src="./application/game/utilities/Screen.js"></script>     
+		<script type="text/javascript" src="./application/game/enemies/AbstractEnemy.js"></script> 
+		<script type="text/javascript" src="./application/game/enemies/TankEnemy.js"></script>         
+		<script type="text/javascript" src="./application/game/enemies/EnemyHandler.js"></script> 
+		<script type="text/javascript" src="./application/game/movil/missiles/Missil.js"></script>     
+		<script type="text/javascript" src="./application/game/movil/Tank.js"></script>         
+		<script type="text/javascript" src="./application/game/items/Item.js"></script>     
+		<script type="text/javascript" src="./application/game/items/ItemHandler.js"></script>     
+		<script type="text/javascript" src="./application/game/Components.js"></script>     
+		<script type="text/javascript" src="./application/game/Application.js"></script>     
+		<script type="text/javascript" src="./application/controller/touches/ITouchable.js"></script>     
+		<script type="text/javascript" src="./application/controller/touches/TouchAttack.js"></script>     
+		<script type="text/javascript" src="./application/controller/touches/TouchMove.js"></script>     
+		<script type="text/javascript" src="./application/controller/touches/buttons/TouchPadButtons.js"></script>     
+		<script type="text/javascript" src="./application/controller/touches/TouchHandler.js"></script>     
+		<script type="text/javascript" src="./application/controller/mouse/MouseMove.js"></script>     
+		<script type="text/javascript" src="./application/controller/CanvasController.js"></script>     
+		<script type="text/javascript" src="./application/connection/Socket.js"></script>     
+		<script type="text/javascript" src="./application/files/File.js"></script>     
+		<script type="text/javascript" src="./application/files/FileManager.js"></script>     
+		<script type="text/javascript" src="./application/events/KeyEvent.js"></script>     
+		<script type="text/javascript" src="./application/audio/AudioManager.js"></script>     
+		<script type="text/javascript" src="./application/Main.js"></script>     
+		<script type="text/javascript" src="./app.js"></script>     
+
+		<style type="text/css">
+			body,#container,#viewport,canvas{
+				padding:0;
+				margin:0;
+				overflow: hidden;
+			}
+			body{
+				background: black; 
+			}
+			#viewport,#container{
+				position:relative;
+			}
+			canvas,#container,#viewport{
+				width:100%; 
+			}
+			#life{
+				width:200px;
+				height:10px;
+				position:absolute;
+				top:10px;
+				left:5px;
+			}
+			#life>div{
+				width:100%;
+				height:100%;
+
+				/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f2f6f8+0,d8e1e7+50,b5c6d0+51,e0eff9+100;Grey+Gloss+%232 */
+				background: rgb(242,246,248); /* Old browsers */
+				background: -moz-linear-gradient(top,  rgba(242,246,248,1) 0%, rgba(216,225,231,1) 50%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%); /* FF3.6-15 */
+				background: -webkit-linear-gradient(top,  rgba(242,246,248,1) 0%,rgba(216,225,231,1) 50%,rgba(181,198,208,1) 51%,rgba(224,239,249,1) 100%); /* Chrome10-25,Safari5.1-6 */
+				background: linear-gradient(to bottom,  rgba(242,246,248,1) 0%,rgba(216,225,231,1) 50%,rgba(181,198,208,1) 51%,rgba(224,239,249,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', endColorstr='#e0eff9',GradientType=0 ); /* IE6-9 */
+
+				border-top-right-radius:5px;
+				border-bottom-right-radius:5px;
+			}
+			#life>div>div{
+				width:100%;
+				height:100%;
+				border-top-right-radius:5px;
+				border-bottom-right-radius:5px;
+
+				/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#9dd53a+0,a1d54f+50,80c217+51,7cbc0a+100;Green+Gloss+%231 */
+				background: rgb(157,213,58); /* Old browsers */
+				background: -moz-linear-gradient(top,  rgba(157,213,58,1) 0%, rgba(161,213,79,1) 50%, rgba(128,194,23,1) 51%, rgba(124,188,10,1) 100%); /* FF3.6-15 */
+				background: -webkit-linear-gradient(top,  rgba(157,213,58,1) 0%,rgba(161,213,79,1) 50%,rgba(128,194,23,1) 51%,rgba(124,188,10,1) 100%); /* Chrome10-25,Safari5.1-6 */
+				background: linear-gradient(to bottom,  rgba(157,213,58,1) 0%,rgba(161,213,79,1) 50%,rgba(128,194,23,1) 51%,rgba(124,188,10,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9dd53a', endColorstr='#7cbc0a',GradientType=0 ); /* IE6-9 */
+
+				
+			}
+			#console{
+				position:absolute;
+				top:0;
+				left:0;
+				background:rgba(255,255,255,0.5);
+				color:black;
+				width:400px;
+				height:100%;
+				overflow-y:scroll;
+				display:none;
+			}
+			#facebook_login{
+				position:absolute;
+				right:0;
+				bottom:0;
+				z-index:100;
+			}
+			#volume{
+				position:absolute;
+				left:0;
+				bottom:60px;
+				z-index:105;  
+				background:rgba(255,255,255,0.5);
+				border-radius:10px;
+				font-size:20px;
+				font-family:'FontAwesome';
+				padding-left:5px;
+				padding-right:5px;
+			}
+			#volume>div{
+				padding:5px;
+			}
+			#volume>div:hover{
+				cursor:pointer;
+			}
+			#volume>div:nth-child(1){
+				border-bottom:3px solid #666;
+			} 
+			#volume>div:nth-child(3){
+				border-top:3px solid #666;
+			}
+			#volume>div:nth-child(1):before{
+				content:"\F139";
+			}
+			#volume>div:nth-child(2):before{
+				content:"\F001"; 
+			}
+			#volume>div:nth-child(3):before{
+				content:"\F13A"; 
+			}
+
+			#play{
+				z-index: 110;
+				background:white;
+				color:black;
+				position:absolute; 
+				padding:5px 90px;
+				border-radius: 20px;
+			}
+			#play>div{ 
+				text-align: center;
+			}
+			#play>div:nth-child(2):before{
+				content:'\F11B';
+				font-family:'FontAwesome';
+				font-size:30px;
+				padding-right:10px;
+				color:rgba(161,213,79,1);
+			}
+			#play>div:nth-child(1):after{
+				content:'\F01D';
+				font-family:'FontAwesome';
+				font-size:100px;
+				color:#0FBC9C;
+			}
+			#gameFinish{
+				position:absolute;
+				padding:10px;
+				text-align: center;
+				background:white;
+				z-index: 111;
+				border-radius: 20px;
+				display:none;
+			}
+			#gameFinish>div:nth-child(2):hover{
+				cursor:pointer;
+			}
+			#gameFinish>div:nth-child(3):hover{
+				cursor:pointer;
+			}
+			#timer{
+				position:absolute;
+				top:0;
+				z-index:112; 
+			    background: rgba(255,255,255,0.6);
+			    padding: 10px 20px;
+			    width: 20px;
+			    text-align: center;
+			    border-bottom-left-radius: 10px;
+			    border-bottom-right-radius: 10px;
+			    display: none;
+			}
+			#historyUI{
+				position:absolute;
+				top:0;
+				z-index:113; 
+			    background: rgba(255,255,255,0.9);
+			    padding: 5px 10px; 
+			    text-align: center;
+			    border-bottom-left-radius: 5px;
+			    border-bottom-right-radius: 5px;
+			    display: none;
+			    overflow:scroll; 
+			}
+
+			#historyUI table tr:nth-child(even) {
+			    background-color: #f2f2f2;
+			}
+			#historyUI table{
+			    font-size: 16px;
+			    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+			    border-collapse: collapse;
+			    border-spacing: 0;
+			    width: 100%;
+			}
+			#historyUI table th {
+			    padding-top: 11px;
+			    padding-bottom: 11px;
+			    background-color: #4CAF50;
+			    color: white;
+			}
+			#historyUI table th,td {
+				border: 1px solid #ddd;
+			    text-align: left;
+			    padding: 8px;
+			}
+			#historyUI .close{
+				position:absolute;
+				top:0;
+				right:0;
+			}
+			.close:after{
+				content: '\f00d';
+			    font-family: 'FontAwesome';
+			    font-size: 30px;
+			    color: #1d2129;
+			    background: #d9d9d9;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div id="container">
+			<div id="viewport">
+
+			</div>
+			<div id="life">
+				<div>
+					<div></div>
+				</div>
+			</div> 
+			<div id="console">
+
+			</div> 
+				<div id="facebook_login">
+					<div id="fb-root"></div>
+					<fb:login-button scope="public_profile,email" id="fb_log_in" data-size="large" onlogin="">
+				</fb:login-button>
+			</div>
+			<div id="volume">
+				<div id="volume_up"></div>
+				<div></div>
+				<div id="volume_down"></div>
+			</div>
+			<div id="play" onclick="javascript:m.play();">
+				<div></div> 
+				<div>ATAQUE DE TANQUES</div>
+			</div>
+			<div id="gameFinish">
+				<div id="gF_msg"></div> 
+				<div id="gStatus" onclick="javascript:m.reset();">PLAY AGAIN</div>
+				<div onclick="javascript:m.saveHistory();">save history</div>
+				<div onclick="javascript:m.showHistory();">show history</div>
+			</div>
+			<div id="historyUI"> 
+				<div class="close" onclick="javascript:window._historyUI.style.display='none'"></div>
+				<div id="hContent"></div>
+			</div>
+		</div>
+		<div id="fileStatus"> 
+		</div> 
+		<div id="timer"> 
+		</div> 
+	</body>
+</html>
