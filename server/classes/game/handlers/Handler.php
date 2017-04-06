@@ -24,8 +24,8 @@
 				require_once "classes/Facebook/autoload.php";
 				$this->facebook = new Facebook\Facebook(
 					array(
-						'app_id' => '1267664723354750',
-						'app_secret' => 'fb33dbb9e65a6f8a39bbd11003173e12',
+						'app_id' => 'xxxxxxx',
+						'app_secret' => 'xxxxxxxxxxxxxxxxxxxxx',
 						'default_graph_version' => 'v2.2' 
 					)
 				); 
@@ -89,8 +89,8 @@
 				require_once "classes/Facebook/autoload.php";
 				$this->facebook = new Facebook\Facebook(
 					array(
-						'app_id' => '1267664723354750',
-						'app_secret' => 'fb33dbb9e65a6f8a39bbd11003173e12',
+						'app_id' => 'xxxxxxxx',
+						'app_secret' => 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
 						'default_graph_version' => 'v2.2' 
 					)
 				); 
