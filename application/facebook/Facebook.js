@@ -56,11 +56,8 @@ application.facebook.Facebook.prototype = {
 		//this.async();
 		var _this = this;
 		window.fbAsyncInit = function() {
-			FB.init({
-				/*
-				appId      : '1646565378909630',
-				*/
-				appId      : '1267664723354750',
+			FB.init({ 
+				appId      : 'xxxxxxxxxxxxx',
 				cookie     : true,  
 				xfbml      : true,  
 				version    : 'v2.8'  
